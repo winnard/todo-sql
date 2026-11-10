@@ -36,20 +36,28 @@ def update_task(id, new_status):
 	conn.commit()
 	print(Fore.YELLOW + f'Task ID {id} updated to {new_status}.' + Style.RESET_ALL)
 
+def delete_task(id):
+	cursor.execute('DELETE FROM tasks where id = ?', (id))
+	conn.commit()
+	print(Fore.RED + f'Task ID {id} deleted.' + Style.RESET_ALL)
+
 while True:
-	print('\nOptions: 1) Add Task 2) View Tasks 3) Update Task')
+	print('\nOptions: 1) Add Task 2) View Tasks 3) Update Task 4) Delete Task')
 	choice = input('\nChoose an option: ')
 	if choice == '1':
-		task_name = input('Enter task name: ')
-		description = input('Enter task description: ')
+		task_name = input('Enter task NAME: ')
+		description = input('Enter task DESCRIPTION: ')
 		days_to_due = input('Enter days until due: ')
 		add_task(task_name, description, days_to_due)
 	elif choice == '2':
 		view_tasks()
 	elif choice == '3':
-		id = input('Enter ID of the task: ')
+		id = input('Enter ID of the task to be UPDATED: ')
 		new_status = input('Enter new status: ')
 		update_task(id, new_status)
+	elif choice == '4':
+		id = input('Enter ID of the task to be DELETED: ')
+		delete_task(id)
 	else:
 		print('Invalid selection.')
 

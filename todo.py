@@ -30,8 +30,14 @@ def view_tasks():
 	print('\nCurrent tasks: ')
 	for task in tasks:
 		print(Fore.CYAN + f'ID: {task[0]}, Name: {task[1]}, Days until due: {task[3]}, Status: {task[4]}, Date due: {task[6]}' + Style.RESET_ALL)
+
+def update_task(id, new_status):
+	cursor.execute('UPDATE tasks SET status = ? WHERE id = ?', (new_status, id))
+	conn.commit()
+	print(Fore.YELLOW + f'Task ID {id} updated to {new_status}.' + Style.RESET_ALL)
+
 while True:
-	print('\nOptions: 1) Add Task 2) View Tasks')
+	print('\nOptions: 1) Add Task 2) View Tasks 3) Update Task')
 	choice = input('\nChoose an option: ')
 	if choice == '1':
 		task_name = input('Enter task name: ')
@@ -40,6 +46,10 @@ while True:
 		add_task(task_name, description, days_to_due)
 	elif choice == '2':
 		view_tasks()
+	elif choice == '3':
+		id = input('Enter ID of the task: ')
+		new_status = input('Enter new status: ')
+		update_task(id, new_status)
 	else:
 		print('Invalid selection.')
 

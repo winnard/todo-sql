@@ -42,7 +42,7 @@ def delete_task(id):
 	print(Fore.RED + f'Task ID {id} deleted.' + Style.RESET_ALL)
 
 while True:
-	print('\nOptions: 1) Add Task 2) View Tasks 3) Update Task 4) Delete Task')
+	print('\nOptions: 1) Add Task 2) View Tasks 3) Update Task 4) Delete Task 5) Exit')
 	choice = input('\nChoose an option: ')
 	if choice == '1':
 		task_name = input('Enter task NAME: ')
@@ -58,6 +58,8 @@ while True:
 	elif choice == '4':
 		id = input('Enter ID of the task to be DELETED: ')
 		delete_task(id)
+	elif choice == '5':
+		break
 	else:
 		print('Invalid selection.')
 

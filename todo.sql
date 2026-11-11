@@ -4,6 +4,5 @@ CREATE TABLE IF NOT EXISTS tasks (
 	description TEXT,
 	days_to_due TEXT,
 	status TEXT DEFAULT 'pending',
-	date_added TEXT,
 	date_due TEXT
 );

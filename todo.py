@@ -14,13 +14,12 @@ def add_task(task_name, description, days_to_due):
 	now = datetime.now()
 	due = now + timedelta(days=int(days_to_due))
 
-	date_added = now.strftime('%d-%m-%Y %H:%M:%S')
 	date_due = due.strftime('%d-%m-%Y %H:%M:%S')
 
 	cursor.execute('''
-		INSERT INTO tasks (task_name, description, days_to_due, status, date_added, date_due)
-		VALUES (?, ?, ?, 'pending', ?, ?)
-		''', (task_name, description, days_to_due, date_added, date_due))
+		INSERT INTO tasks (task_name, description, days_to_due, status, date_due)
+		VALUES (?, ?, ?, 'pending', ?)
+		''', (task_name, description, days_to_due, date_due))
 	conn.commit()
 	print(Fore.GREEN + f"Task '{task_name}' added successfully." + Style.RESET_ALL)
 
@@ -29,7 +28,7 @@ def view_tasks():
 	tasks = cursor.fetchall()
 	print('\nCurrent tasks: ')
 	for task in tasks:
-		print(Fore.CYAN + f'ID: {task[0]}, Name: {task[1]}, Days until due: {task[3]}, Status: {task[4]}, Date due: {task[6]}' + Style.RESET_ALL)
+		print(Fore.CYAN + f'ID: {task[0]}, Name: {task[1]}, Description: {task[2]}, Days until due: {task[3]}, Status: {task[4]}, Date due: {task[5]}' + Style.RESET_ALL)
 
 def update_task(id, new_status):
 	cursor.execute('UPDATE tasks SET status = ? WHERE id = ?', (new_status, id))
